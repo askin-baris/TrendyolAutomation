@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -45,6 +46,9 @@ public class TrendyolHomePage {
     @FindBy(xpath = "//p[contains(text(),'Hesabım')]")
     public WebElement Hesabım;
 
+    @FindBy(xpath = "(//p[@class='link-text'])[1]")
+    public WebElement girisYap;
+
     public void closeHomePagePopup() {
         if (homePagePopup.isDisplayed()) {
             Driver.getDriver().findElement(By.className("modal-close")).click();
@@ -81,6 +85,20 @@ public class TrendyolHomePage {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(Hesabım));
         return Hesabım.isDisplayed();
+    }
+
+    public void girisYap(){
+        WebUtils.moveToElement(girisYap);
+        Driver.getDriver().findElement(By.xpath("//div[contains(text(),'Giriş Yap')]")).click();
+        //Driver.getDriver().findElement(By.className("login-container")).click();
+    }
+
+    public void searchBox(){
+        WebElement search= Driver.getDriver().findElement(By.xpath("//input[@data-testid='suggestion']"));
+        search.click();
+        search.sendKeys("ayakkabı");
+        search.sendKeys(Keys.ENTER);
+
     }
 
     }

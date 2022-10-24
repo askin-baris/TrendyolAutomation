@@ -8,4 +8,4 @@ Feature: Trendyol sitesine Login olma ve ürün aratma
     And ürün araması yapılır
     And ürüne tıklanır
     And ürün numarası seçilir "41"
-    And ürün listeleme ekranına geri dönülür
+   ## And ürün listeleme ekranına geri dönülür

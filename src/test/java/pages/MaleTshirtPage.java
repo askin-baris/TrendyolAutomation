@@ -28,7 +28,7 @@ public class MaleTshirtPage {
     public void closePopup() {
         if (popup.isDisplayed()) {
             WebUtils.waitFor();
-            Driver.getDriver().findElement(By.cssSelector(".popup")).click();
+            Driver.getDriver().findElement(By.cssSelector(".overlay")).click();
         }
     }
 

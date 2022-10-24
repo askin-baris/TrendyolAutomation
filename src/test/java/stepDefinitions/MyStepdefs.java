@@ -5,16 +5,16 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.it.Ma;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import pages.LoginPage;
+import pages.MaleTshirtPage;
 import pages.TrendyolHomePage;
 import utils.Driver;
+import utils.WebUtils;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -41,11 +41,7 @@ public class MyStepdefs {
     @When("giriş yap ikonuna tıklanır")
     public void click_login_icon()
     {
-        Actions actions = new Actions(Driver.getDriver());
-        WebElement girisYap = Driver.getDriver().findElement(By.xpath("(//p[@class='link-text'])[1]"));
-        actions.moveToElement(girisYap).perform();
-        Driver.getDriver().findElement(By.xpath("//div[contains(text(),'Giriş Yap')]")).click();
-        //Driver.getDriver().findElement(By.className("login-container")).click();
+        trendyolHomePage.girisYap();
     }
 
     @Then("eposta adresi girilir")
@@ -85,18 +81,30 @@ public class MyStepdefs {
     @And("ürüne tıklanır")
     public void Click_product()
     {
-        List<WebElement> products= Driver.getDriver().findElements(By.className("p-card-wrppr"));
+
+        // Assume driver is a valid WebDriver instance that
+        // has been properly instantiated elsewhere.
+
+
+        /*List<WebElement> products= Driver.getDriver().findElements(By.className("p-card-wrppr"));
         //Driver.getDriver().findElement(By.xpath("//div[@class='p-card-wrppr with-campaign-view'][1]")).click();
         System.out.println(products.size());
         int counter=1;
         for (WebElement product:products) {
             System.out.println(product.getText());
             if (product.getText().contains("SlipcatUnisex Içi Yünlü Ev Pandufu Ev Botu Ev Ayakkabısı")){
-                product.click();
+                //product.click();
+                JavascriptExecutor executor = (JavascriptExecutor)Driver.getDriver();
+                executor.executeScript("arguments[0].click();", product);
                 break;
             }
             counter++;
-        }
+        }*/
+        MaleTshirtPage maleTshirtPage = new MaleTshirtPage();
+        maleTshirtPage.closePopupGeneric();
+        WebUtils.waitFor();
+        Driver.getDriver().findElement(By.xpath("//div[@class='p-card-wrppr with-campaign-view'][2]//a")).click();
+
         //products.get(2).click();
     }
 
